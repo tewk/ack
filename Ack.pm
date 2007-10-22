@@ -154,6 +154,9 @@ sub get_command_line_options {
         1                       => sub { $opt{1} = $opt{m} = 1 },
         a                       => \$opt{all},
         'all!'                  => \$opt{all},
+        'A|after-context=i'     => \$opt{after_context},
+        'B|before-context=i'    => \$opt{before_context},
+        'C|context:i'           => sub { shift; my $val = shift; $opt{before_context} = $opt{after_context} = ($val || 2) },
         c                       => \$opt{count},
         'color!'                => \$opt{color},
         count                   => \$opt{count},
@@ -496,6 +499,15 @@ Search output:
   --[no]color           Highlight the matching text (default: on unless
                         output is redirected, or on Windows)
 
+  -A NUM, --after-context=NUM
+                        Print NUM lines of trailing context after matching
+                        lines.
+  -B NUM, --before-context=NUM
+                        Print NUM lines of leading context before matching
+                        lines.
+  -C [NUM], --context[=NUM]
+                        Print NUM lines (default 2) of output context.
+
 File finding:
   -f                    Only print the files found, without searching.
                         The PATTERN must not be specified.
@@ -832,11 +844,13 @@ sub apply_defaults {
     my $opt = shift;
 
     my %defaults = (
-        all     => 0,
-        color   => $to_screen && !$App::Ack::is_windows,
-        follow  => 0,
-        group   => $to_screen,
-        m       => 0,
+        all            => 0,
+        color          => $to_screen && !$App::Ack::is_windows,
+        follow         => 0,
+        group          => $to_screen,
+        m              => 0,
+        before_context => 0,
+        after_context  => 0,
     );
     while ( my ($key,$value) = each %defaults ) {
         if ( not defined $opt->{$key} ) {

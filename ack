@@ -195,6 +195,18 @@ back in on I<ack> in the near future, because I'm adding it.
 Operate on all files, regardless of type (but still skip directories
 like F<blib>, F<CVS>, etc.)
 
+=item B<-A I<NUM>>, B<--after-context=I<NUM>>
+
+Print I<NUM> lines of trailing context after matching lines.
+
+=item B<-B I<NUM>>, B<--after-context=I<NUM>>
+
+Print I<NUM> lines of leading context before matching lines.
+
+=item B<-C [I<NUM>]>, B<--after-context[=I<NUM>]>
+
+Print I<NUM> lines (default 2) of context around matching lines.
+
 =item B<-c>, B<--count>
 
 Suppress normal output; instead print a count of matching lines for
