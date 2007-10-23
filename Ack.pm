@@ -758,11 +758,12 @@ sub search {
     while (<$fh>) {
         if ( $v ? /$regex/o : !/$regex/o ) {
             print if $passthru;
-            if( $context ) {
+            if ( $context ) {
                 if ( $after ) {
                     print_match($_, $., 0);
                     $after--;
-                } else {
+                }
+                else {
                     push @before, [$_, $.];
                     shift @before if @before > $before_context;
                 }
@@ -821,7 +822,7 @@ sub print_match {
         print $context_sep
           if  $last_output_line != $line_no - 1 &&
              ( $any_output || ( !$group && $context_overall_output_count++ > 0 ) );
-        #                       to ensure separators between different files when --nogroup
+        # to ensure separators between different files when --nogroup
 
         $last_output_line = $line_no;
     }

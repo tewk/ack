@@ -183,9 +183,6 @@ annoying to you, use I<grep>.
 If you truly want to search every file and every directory, I<ack>
 won't do it.  You'll need to rely on I<grep>.
 
-If you need context around your matches, use I<grep>, but check
-back in on I<ack> in the near future, because I'm adding it.
-
 =head1 OPTIONS
 
 =over 4
@@ -443,8 +440,6 @@ There is a list of enhancements I want to make to F<ack> in the ack
 issues list at Google Code: L<http://code.google.com/p/ack/issues/list>
 
 Yes, we want to be able to specify filetypes.
-
-Yes, we want to display context.
 
 Yes, we want to add support for a F<.ackrc> file.
 
