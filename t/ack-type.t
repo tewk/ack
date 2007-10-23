@@ -39,7 +39,6 @@ my $perl = [qw(
     t/ack-a.t
     t/ack-binary.t
     t/ack-c.t
-    t/ack-context.t
     t/ack-g.t
     t/ack-h.t
     t/ack-o.t
@@ -48,6 +47,7 @@ my $perl = [qw(
     t/ack-type.t
     t/ack-v.t
     t/ack-w.t
+    t/context.t
     t/etc/shebang.pl.xxx
     t/filetypes.t
     t/interesting.t
