@@ -798,6 +798,15 @@ sub search {
     return $nmatches;
 }   # search()
 
+=head2 print_match( $line, $line_no, $is_match )
+
+Prints out a matching line, which may or may not actually have a
+match on the line.
+
+XXX Given the above, we may need to rename
+
+=cut
+
 sub print_match {
     local $_     = shift; # line to print
     my $line_no  = shift; # line number of that line

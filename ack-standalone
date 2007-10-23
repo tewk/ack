@@ -1370,7 +1370,7 @@ sub print_match {
         }
     }
 
-    if ( $context && !$output_func ) {
+    if ( $context ) {
         print $context_sep
           if  $last_output_line != $line_no - 1 &&
              ( $any_output || ( !$group && $context_overall_output_count++ > 0 ) );
