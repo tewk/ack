@@ -798,6 +798,7 @@ sub search {
     return $nmatches;
 }   # search()
 
+
 =head2 print_match( $line, $line_no, $is_match )
 
 Prints out a matching line, which may or may not actually have a
@@ -822,15 +823,16 @@ sub print_match {
                     ? Term::ANSIColor::colored( $filename, $ENV{ACK_COLOR_FILENAME} )
                     : $filename;
         }
-        if ( $group ) {
-            print $display_filename, "\n" unless $any_output;
+        if ( $group && $any_output ) {
+            print $display_filename, "\n";
         }
     }
 
     if ( $context ) {
-        print $context_sep
-          if  $last_output_line != $line_no - 1 &&
-             ( $any_output || ( !$group && $context_overall_output_count++ > 0 ) );
+        if ( $last_output_line != $line_no - 1 &&
+            ( $any_output || ( !$group && $context_overall_output_count++ > 0 ) ) ) {
+            print $context_sep
+        }
         # to ensure separators between different files when --nogroup
 
         $last_output_line = $line_no;
