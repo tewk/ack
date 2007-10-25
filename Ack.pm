@@ -749,8 +749,9 @@ sub search {
     $any_output = 0;
     my $before_context = $opt->{before_context};
     my $after_context  = $opt->{after_context};
-    $context = $before_context || $after_context;
-    $context = 0 if $passthru; # no context processing
+
+    $context = ($before_context || $after_context) && !$passthru;
+
     my @before;
     my $b;
     my $after = 0; # number of lines still to print after a match
