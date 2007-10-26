@@ -161,5 +161,5 @@ EOF
 
     my @results = run_ack( @args, @files );
 
-    lists_match( \@results, \@expected, 'Find all the things - in spite of context' );
+    lists_match( \@results, \@expected, 'Context is disabled with -o' );
 }
