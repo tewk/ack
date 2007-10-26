@@ -761,8 +761,6 @@ sub print_match {
     my $is_match = shift; # is there a match on the line?
     my $sep = $is_match ? ':' : '-';
 
-    my $context_sep = '--' . $/;
-
     if ( $show_filename ) {
         if ( not defined $display_filename ) {
             $display_filename =
@@ -776,9 +774,9 @@ sub print_match {
     }
 
     if ( $context ) {
-        if ( $last_output_line != $line_no - 1 &&
+        if ( ( $last_output_line != $line_no - 1 ) &&
             ( $any_output || ( !$group && $context_overall_output_count++ > 0 ) ) ) {
-            print $context_sep
+            print "--\n";
         }
         # to ensure separators between different files when --nogroup
 
@@ -799,8 +797,7 @@ sub print_match {
     else {
         if ( $color && $is_match ) {
             if ( s/($regex)/Term::ANSIColor::colored($1,$ENV{ACK_COLOR_MATCH})/eg ) {
-                # Before \n, reset the color and clear to end of line
-                s/\n$/\e[0m\e[K\n/;
+                s/\n$/\e[0m\e[K\n/;     # Before \n, reset the color and clear to end of line
             }
         }
         print;

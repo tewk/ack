@@ -1,6 +1,6 @@
 Changelog for ack
 
-NEXT
+1.69_01
     [FEATURES REMOVED]
     ack used to check for options that didn't make sense together,
     like "ack -l --group", and wouldn't run.  Now, with the ability

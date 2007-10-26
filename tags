@@ -69,8 +69,6 @@ _get_thpppt	Ack.pm	/^sub _get_thpppt {$/;"	s
 _key	Ack.pm	/^sub _key {$/;"	s
 _listify	Ack.pm	/^sub _listify {$/;"	s
 _my_program	Ack.pm	/^sub _my_program {$/;"	s
-_option_conflict	Ack.pm	/^sub _option_conflict {$/;"	s
-_opty	Ack.pm	/^sub _opty {$/;"	s
 _thpppt	Ack.pm	/^sub _thpppt {$/;"	s
 apply_defaults	Ack.pm	/^sub apply_defaults {$/;"	s
 build_regex	Ack.pm	/^sub build_regex {$/;"	s
@@ -94,7 +92,6 @@ main	Makefile.PL	/^package main;$/;"	p
 main	ack	/^sub main {$/;"	s
 open_file	Ack.pm	/^sub open_file {$/;"	s
 option_in_usage	t/longopts.t	/^sub option_in_usage {$/;"	s
-options_sanity_check	Ack.pm	/^sub options_sanity_check {$/;"	s
 pipe_into_ack	t/Util.pm	/^sub pipe_into_ack {$/;"	s
 print_files	Ack.pm	/^sub print_files {$/;"	s
 print_match	Ack.pm	/^sub print_match {$/;"	s
