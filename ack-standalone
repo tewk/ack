@@ -1264,7 +1264,7 @@ sub search {
             print if $passthru;
             if ( $keep_context ) {
                 if ( $after ) {
-                    print_match($_, $., 0);
+                    print_match( $_, $., 0 );
                     $after--;
                 }
                 else {
@@ -1284,8 +1284,8 @@ sub search {
             $could_be_binary = 0;
         }
         if ( $keep_context ) {
-            for my $b ( @before ) {
-                print_match( @$b[0,1], 0 );
+            for my $i ( @before ) {
+                print_match( @{$i}[0,1], 0 );
             }
             @before = ();
             $after = $after_context;
