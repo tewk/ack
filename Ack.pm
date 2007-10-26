@@ -764,7 +764,7 @@ sub print_match_or_context {
                     ? Term::ANSIColor::colored( $filename, $ENV{ACK_COLOR_FILENAME} )
                     : $filename;
         }
-        if ( $group && $any_output ) {
+        if ( $group && !$any_output ) {
             print $display_filename, "\n";
         }
     }
