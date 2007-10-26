@@ -666,7 +666,7 @@ Main search method
     my $show_filename;
     my $group;
     my $color;
-    my $context;
+    my $keep_context;
 
     my $last_output_line; # number of the last line that has been output
     my $any_output;       # has there been any output for the current file yet
@@ -696,16 +696,15 @@ sub search {
     my $before_context = $opt->{before_context};
     my $after_context  = $opt->{after_context};
 
-    $context = ($before_context || $after_context) && !$passthru;
+    $keep_context = ($before_context || $after_context) && !$passthru;
 
     my @before;
-    my $b;
     my $after = 0; # number of lines still to print after a match
 
     while (<$fh>) {
         if ( $v ? /$regex/o : !/$regex/o ) {
             print if $passthru;
-            if ( $context ) {
+            if ( $keep_context ) {
                 if ( $after ) {
                     print_match($_, $., 0);
                     $after--;
@@ -726,8 +725,8 @@ sub search {
             }
             $could_be_binary = 0;
         }
-        if ( $context ) {
-            for $b ( @before ) {
+        if ( $keep_context ) {
+            for my $b ( @before ) {
                 print_match( @$b[0,1], 0 );
             }
             @before = ();
@@ -773,7 +772,7 @@ sub print_match {
         }
     }
 
-    if ( $context ) {
+    if ( $keep_context ) {
         if ( ( $last_output_line != $line_no - 1 ) &&
             ( $any_output || ( !$group && $context_overall_output_count++ > 0 ) ) ) {
             print "--\n";
