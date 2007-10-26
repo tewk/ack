@@ -209,7 +209,7 @@ sub get_command_line_options {
     unshift @ARGV, split( ' ', $ENV{ACK_OPTIONS} ) if defined $ENV{ACK_OPTIONS};
 
     Getopt::Long::Configure( 'bundling', 'no_ignore_case' );
-    Getopt::Long::GetOptions( %{$getopt_specs} ) && options_sanity_check( %opt ) or
+    Getopt::Long::GetOptions( %{$getopt_specs} ) or
         App::Ack::die( 'See ack --help or ack --man for options.' );
 
     apply_defaults(\%opt);
@@ -315,60 +315,6 @@ sub is_searchable {
 
     return 1;
 }
-
-=head2 options_sanity_check( %opts )
-
-Checks for sane command-line options.  For example, I<-l> doesn't
-make sense with I<-C>.
-
-=cut
-
-sub options_sanity_check {
-    my %opts = @_;
-    my $ok = 1;
-
-    # List mode doesn't make sense with any of these
-    $ok = 0 if _option_conflict( \%opts, 'l', [qw( f g group o output passthru )] );
-
-    # Passthru negates the need for a lot of switches
-    $ok = 0 if _option_conflict( \%opts, 'passthru', [qw( f g group l )] );
-
-    # File-searching is definitely irrelevant on these
-    for my $switch ( qw( f g l ) ) {
-        $ok = 0 if _option_conflict( \%opts, $switch, [qw( A B C o group )] );
-    }
-
-    # No sense to have negation with -o or --output
-    for my $switch ( qw( v ) ) {
-        $ok = 0 if _option_conflict( \%opts, $switch, [qw( o output passthru )] );
-    }
-
-    return $ok;
-}
-
-sub _option_conflict {
-    my $opts = shift;
-    my $used = shift;
-    my $exclusives = shift;
-
-    return if not defined $opts->{$used};
-
-    my $bad = 0;
-    for my $opt ( @{$exclusives} ) {
-        if ( defined $opts->{$opt} ) {
-            print 'The ', _opty($opt), ' option cannot be used with the ', _opty($used), " option.\n";
-            $bad = 1;
-        }
-    }
-
-    return $bad;
-}
-
-sub _opty {
-    my $opt = shift;
-    return length($opt)>1 ? "--$opt" : "-$opt";
-}
-
 
 =head2 build_regex( $str, \%opts )
 

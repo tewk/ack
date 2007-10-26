@@ -8,6 +8,7 @@ ack-help.txt
 ack-help-types.txt
 ack-standalone
 squash
+TODO
 
 t/00-load.t
 t/ack-1.t
