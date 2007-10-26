@@ -706,7 +706,7 @@ sub search {
             print if $passthru;
             if ( $keep_context ) {
                 if ( $after ) {
-                    print_match( $_, $., 0 );
+                    print_match_or_context( $_, $., 0 );
                     $after--;
                 }
                 else {
@@ -727,12 +727,12 @@ sub search {
         }
         if ( $keep_context ) {
             for my $i ( @before ) {
-                print_match( @{$i}[0,1], 0 );
+                print_match_or_context( @{$i}[0,1], 0 );
             }
             @before = ();
             $after = $after_context;
         }
-        print_match( $_, $., 1 );
+        print_match_or_context( $_, $., 1 );
 
         last if $max && ( $nmatches >= $max );
     } # while
@@ -745,16 +745,13 @@ sub search {
 }   # search()
 
 
-=head2 print_match( $line, $line_no, $is_match )
+=head2 print_match_or_context( $line, $line_no, $is_match )
 
-Prints out a matching line, which may or may not actually have a
-match on the line.
-
-XXX Given the above, we may need to rename
+Prints out a matching line or a line of context around a match.
 
 =cut
 
-sub print_match {
+sub print_match_or_context {
     local $_     = shift; # line to print
     my $line_no  = shift; # line number of that line
     my $is_match = shift; # is there a match on the line?
@@ -772,7 +769,7 @@ sub print_match {
         }
     }
 
-    if ( $keep_context ) {
+    if ( $keep_context && !$output_func ) {
         if ( ( $last_output_line != $line_no - 1 ) &&
             ( $any_output || ( !$group && $context_overall_output_count++ > 0 ) ) ) {
             print "--\n";
@@ -801,9 +798,9 @@ sub print_match {
         }
         print;
     }
-} # print_match()
+} # print_match_or_context()
 
-} # scope around search() and print_match()
+} # scope around search() and print_match_or_context()
 
 
 =head2 search_and_list( $fh, $filename, $regex, \%opt )
